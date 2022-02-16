@@ -1,4 +1,4 @@
-### ATTN: I haven't been working on this, but I noticed it ended up being one of the top result on Google, if you are interested in using this and are having issues, or simply want additional features, let me know and I can start doing more work with it. I accomplished what I needed from this, so I started working on other projects.
+### ATTN: I no longer have the hardware to work on this project, so if anyone wants to take over being the maintainer let me know. 
 
 # Logitech-G560-LED-Controller
 
