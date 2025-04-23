@@ -24,8 +24,9 @@ class MainWindow(Gtk.ApplicationWindow):
         self.add(hbox)
 
     def create_sidebar(self):
-        vbox = Gtk.Box(homogeneous=False,
-                       orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
+        vbox = Gtk.Box(
+            homogeneous=False, orientation=Gtk.Orientation.HORIZONTAL, spacing=2
+        )
 
         stack = Gtk.Stack()
         stack.set_hhomogeneous(True)
@@ -39,7 +40,7 @@ class MainWindow(Gtk.ApplicationWindow):
 
         stack_sidebar = Gtk.StackSidebar()
         stack_sidebar.set_stack(stack)
-        stack_sidebar.set_size_request((640/5), 300)
+        stack_sidebar.set_size_request((640 / 5), 300)
 
         vbox.pack_start(stack_sidebar, False, True, 0)
         vbox.pack_start(stack, True, True, 0)

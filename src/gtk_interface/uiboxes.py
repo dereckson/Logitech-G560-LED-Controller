@@ -12,7 +12,7 @@ class ListBoxRowWithData(Gtk.ListBoxRow):
         self.add(Gtk.Label(data))
 
 
-class UiBoxes():
+class UiBoxes:
     def __init__(self):
         self.ui_buttons = UiButtons()
         self.ui_widget = WidgetHelpers()
@@ -23,7 +23,7 @@ class UiBoxes():
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         hbox.pack_end(vbox, True, True, 10)
 
-        color_list_box = self.color_list_box('current')
+        color_list_box = self.color_list_box("current")
 
         vbox.pack_start(color_list_box, False, False, 10)
 
@@ -41,9 +41,16 @@ class UiBoxes():
         return hbox
 
     def color_list_box(self, profile):
-        main_options = ['primary', 'secondary', ]
-        led_options = ['right_primary', 'left_primary',
-                       'right_secondary', 'left_secondary']
+        main_options = [
+            "primary",
+            "secondary",
+        ]
+        led_options = [
+            "right_primary",
+            "left_primary",
+            "right_secondary",
+            "left_secondary",
+        ]
         box_fill = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
         listbox = Gtk.ListBox()
@@ -52,11 +59,10 @@ class UiBoxes():
         for option in led_options:
             button = self.ui_buttons.create_btn_color_select(option, profile)
 
-            if '_' in option:
-                option = option.replace('_', ' ')
+            if "_" in option:
+                option = option.replace("_", " ")
 
-            row = self.ui_widget.create_list_row(
-                f"{option.title()} LED", button)
+            row = self.ui_widget.create_list_row(f"{option.title()} LED", button)
 
             listbox.add(row)
 
@@ -64,7 +70,7 @@ class UiBoxes():
             return row_1.data.lower() > row_2.data.lower()
 
         def filter_func(row, data, notify_destroy):
-            return False if row.data == 'Fail' else True
+            return False if row.data == "Fail" else True
 
         def on_row_activated(listbox_widget, row):
             print(row.data)

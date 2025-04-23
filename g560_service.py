@@ -22,8 +22,8 @@ class UsbOperations(rpyc.Service):
     """
 
     def __init__(self):
-        id_vendor = 0x046d  # Logitech USB Vendor ID
-        id_product = 0x0a78  # G560 USB Product ID
+        id_vendor = 0x046D  # Logitech USB Vendor ID
+        id_product = 0x0A78  # G560 USB Product ID
 
         # Initializes the USB device to be called throughout the script
         self.dev = usb.core.find(idVendor=id_vendor, idProduct=id_product)
@@ -62,19 +62,22 @@ class UsbOperations(rpyc.Service):
                 data = unhexlify(data)
 
                 self.dev.ctrl_transfer(
-                    self.bm_req_type, self.b_req, self.wvalue, self.windex, data)
+                    self.bm_req_type, self.b_req, self.wvalue, self.windex, data
+                )
 
-                sleep(.006)
+                sleep(0.006)
         else:
             data = unhexlify(data[0])
 
             self.dev.ctrl_transfer(
-                self.bm_req_type, self.b_req, self.wvalue, self.windex, data)
+                self.bm_req_type, self.b_req, self.wvalue, self.windex, data
+            )
 
         self.attach_driver()
 
 
-if __name__ == '__main__':
-    server = ThreadedServer(UsbOperations, port=17657, protocol_config={
-                            "allow_public_attrs": True})
+if __name__ == "__main__":
+    server = ThreadedServer(
+        UsbOperations, port=17657, protocol_config={"allow_public_attrs": True}
+    )
     server.start()

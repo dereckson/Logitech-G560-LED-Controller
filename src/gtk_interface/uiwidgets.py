@@ -5,12 +5,12 @@ from gi.repository import Gtk, Gdk
 from src.ledcontrols import LedControls
 
 
-class UiButtons():
+class UiButtons:
     def __init__(self):
         self.led_control = LedControls()
         self.led_options = {}
 
-    def create_btn_color_select(self, option, profile='default'):
+    def create_btn_color_select(self, option, profile="default"):
         led_color = WidgetHelpers.get_led_profile(profile)
 
         self.led_options[option] = led_color[option]
@@ -19,14 +19,15 @@ class UiButtons():
         # Color Selection Button
         self.btn_color_sel = Gtk.ColorButton()
         # Converts HEX color to RGB
-        rgb = tuple(float(int(self.led_options[option][i:i + 6 // 3], 16) / 255)
-                    for i in range(0, 6, 6 // 3))
+        rgb = tuple(
+            float(int(self.led_options[option][i : i + 6 // 3], 16) / 255)
+            for i in range(0, 6, 6 // 3)
+        )
 
         color = Gdk.RGBA(rgb[0], rgb[1], rgb[2])
 
         self.btn_color_sel.set_rgba(color)
-        self.btn_color_sel.connect(
-            "color-set", self.on_color_selector_click, option)
+        self.btn_color_sel.connect("color-set", self.on_color_selector_click, option)
 
         hbox.pack_start(self.btn_color_sel, False, False, 2)
 
@@ -54,23 +55,22 @@ class UiButtons():
         green = int(color.green * 255)
         blue = int(color.blue * 255)
 
-        self.led_options[option] = "{:02x}{:02x}{:02x}".format(
-            red, green, blue)
+        self.led_options[option] = "{:02x}{:02x}{:02x}".format(red, green, blue)
 
     def on_apply_click(self, widget):
         if len(self.led_options) > 0:
             for option, color in self.led_options.items():
                 self.led_control.set_color(option, color)
-            WidgetHelpers.put_led_profile('current', self.led_options)
+            WidgetHelpers.put_led_profile("current", self.led_options)
 
 
 class WidgetHelpers:
     @staticmethod
     def get_led_profile(profile):
         try:
-            with open('profiles/profilesettings.json') as profiles:
+            with open("profiles/profilesettings.json") as profiles:
                 loaded_profile = json.load(profiles)
-                loaded_profile = loaded_profile['profiles'][profile]
+                loaded_profile = loaded_profile["profiles"][profile]
 
                 return loaded_profile
 
@@ -79,9 +79,9 @@ class WidgetHelpers:
 
     def put_led_profile(profile, data):
         try:
-            with open('profiles/profilesettings.json', 'r+') as profiles:
+            with open("profiles/profilesettings.json", "r+") as profiles:
                 loaded_profile = json.load(profiles)
-                loaded_profile['profiles'][profile] = data
+                loaded_profile["profiles"][profile] = data
 
                 profiles.seek(0)
                 json.dump(loaded_profile, profiles, indent=4)
