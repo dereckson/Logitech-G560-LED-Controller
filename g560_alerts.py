@@ -43,7 +43,7 @@ class AlertControls(LedControls):
             app = notification["app_name"].lower()
             app_profile = self.profile_data["alerts"][app]
 
-            if app is not "google-chrome":
+            if app != "google-chrome":
                 func = self.profile_data["alerts"][app]["function"]
 
                 exec(f"self.{func}({app_profile})")

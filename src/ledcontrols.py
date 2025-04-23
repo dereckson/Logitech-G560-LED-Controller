@@ -35,7 +35,7 @@ class LedControls(object):
         else:
             led_list = [key for key in self.led_id.keys() if led_option.lower() in key]
 
-        if len(led_list) is 0:
+        if len(led_list) == 0:
             ValueCheck.led_option(led_option)
 
         return led_list
